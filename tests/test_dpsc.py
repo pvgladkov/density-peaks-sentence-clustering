@@ -1,24 +1,15 @@
-import os
-
 import numpy as np
 import pytest
-from am.lib.utils.obj_dump import load_object
 
-import config
-from antifraud.common.summarization.dpsc import (
+from dpsc.dpsc import (
     diversity_score_,
     effective_length,
     length_score_,
-    overall_score,
     real_length,
     represent_score_,
     select_top,
-    similarity_matrix,
     split_into_sentences,
 )
-
-path = os.path.join(config.data_path, 'models', 'text_detector')
-VECTORIZER = load_object(os.path.join(path, 'word2vec', 'word2vec.pkl'))
 
 
 @pytest.mark.parametrize(
@@ -86,37 +77,6 @@ def test_eff_len(text, expected_result):
 )
 def test_real_len(text, expected_result):
     assert real_length(text) == expected_result
-
-
-@pytest.mark.parametrize(
-    'text, expected_result', [
-        ('продаю телефон. продаю телефон', [[1.0, 1.0], [1.0, 1.0]]),
-    ],
-)
-def test_sim_matrix(text, expected_result):
-    expected_result = np.array(expected_result, dtype=float)
-    result = similarity_matrix(text, VECTORIZER)
-    assert expected_result.shape == result.shape
-    for i in range(len(result)):
-        for j in range(len(result)):
-            assert round(result[i, j], 3) == round(expected_result[i, j], 3)
-
-
-@pytest.mark.parametrize(
-    'text, expected_result', [
-        (
-            'Продам iphone 8. В хорошем состоянии, все документы на месте. \
-        В нашем магазине только лучшие телефоны.', 3,
-        ),
-        (
-            'Гаражные ворота НОВЫЕ с рамой!\nРазмеры: \nширина с рамой 2.54м \nширина створок 2.42м\nВысота с \
-            рамой 2.24м\nВысота створок 2.15м\nСамовывоз\nВорота демонтированны и готовы к продаже', 8,
-        ),
-    ],
-)
-def test_overall_score(text, expected_result):
-    score = overall_score(text, VECTORIZER)
-    assert len(score) == expected_result
 
 
 @pytest.mark.parametrize(

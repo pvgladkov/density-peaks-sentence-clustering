@@ -6,7 +6,6 @@ from nltk.tokenize import word_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-# pylint: disable=unnecessary-comprehension
 def overall_score(text, vectorizer):
     sim_matrix = similarity_matrix(text, vectorizer)
     effective_lens = [effective_length(s) for s in split_into_sentences(text)]
