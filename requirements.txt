@@ -2,3 +2,5 @@ numpy
 nltk
 sklearn
 pytest
+tensorflow-datasets
+rouge
