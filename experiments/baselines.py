@@ -21,7 +21,6 @@ if __name__ == '__main__':
         refs = []
 
         for text, ref in dataset:
-
             text = text.numpy()
             hyps_75.append(lead_75(str(text)))
             hyps_3s.append(lead_3s(str(text)))
