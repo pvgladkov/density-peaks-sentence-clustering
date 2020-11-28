@@ -1,7 +1,7 @@
-import tensorflow_datasets as tfds
 from nltk.tokenize import sent_tokenize
-
 from rouge import Rouge
+
+from data import datasets
 
 
 def lead_75(t):
@@ -14,11 +14,6 @@ def lead_3s(t):
 
 
 if __name__ == '__main__':
-
-    datasets = {
-        'cnn_dailymail': tfds.load('cnn_dailymail', split='test', as_supervised=True, shuffle_files=False),
-        'gigaword': tfds.load('gigaword', split='test', as_supervised=True, shuffle_files=False),
-    }
 
     for name, dataset in datasets.items():
         hyps_75 = []
