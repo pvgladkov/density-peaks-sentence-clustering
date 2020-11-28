@@ -11,7 +11,7 @@ def overall_score(text, vectorizer):
     effective_lens = [effective_length(s) for s in split_into_sentences(text)]
     real_lens = [real_length(s) for s in split_into_sentences(text)]
 
-    rep_score = np.log(represent_score_(sim_matrix, 0.05))
+    rep_score = np.log(represent_score_(sim_matrix, 0.22))
     div_score = np.log(diversity_score_(sim_matrix, rep_score))
     len_score = np.log(length_score_(effective_lens, real_lens))
     score = rep_score + div_score + len_score

@@ -4,3 +4,4 @@ sklearn
 pytest
 tensorflow-datasets
 rouge
+gensim
